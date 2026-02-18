@@ -10,14 +10,22 @@
 	
 }
 
-\TIBtitle{Contribution title}
-\TIBsubtitle{Subtitle}
+\TIBtitle{From Co-Simulation to Scalable FCO Detection in SUMO}
+\TIBsubtitle{}
 \TIBbundlename[ConfAbbrev]{Full conference name}
 % \TIBconferencesession{Session Name}%ignored for journal articles
 % \TIBdoi{to be filled in}
 % \TIBpublisheddate{to be filled in}
-\TIBabstract{The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.}
-\TIBkeywords{First keyword, second, third keyword}
+\TIBabstract{%
+Floating Car Observers (FCOs) are perception-equipped, connected vehicles that share object-level detections of surrounding traffic participants via V2X communication. By extending classical Floating Car Data (FCD) with onboard sensor outputs, FCOs enable mobile, infrastructure-independent traffic state estimation with broad spatial coverage. FCO-derived observations are therefore highly relevant for ITS applications where a complete and accurate picture of the current traffic state is essential.
+
+A key challenge in FCO research is the simulation-based development and evaluation of algorithms that rely on realistic detection inputs. Microscopic traffic simulators like SUMO operate at a high level of abstraction and do not natively model sensor physics or the stochastic behavior of modern learning-based perception systems. Existing approaches approximate FCO detectability via simple distance thresholds or 2D ray tracing, producing simplified detections not grounded in real-world sensor capabilities. Furthermore, they assign binary detected/undetected labels and fail to capture the uncertainty, position error, and sensor-dependent characteristics of real 3D object detectors.
+
+To address this gap, we present a scalable neural network-based observation model that emulates the outputs of state-of-the-art 3D object detectors directly within SUMO. Training data is generated through a synchronized SUMO--CARLA co-simulation, in which observer vehicles are equipped with virtual camera and LiDAR sensors following the NuScenes sensor setup. Detections are produced by fine-tuned 3D detection models covering LiDAR-only, camera-only, and multimodal configurations, and capture realistic imperfections including localization error and missed detections. A lightweight neural network, trained on abstract scene representations natively available in SUMO---capturing surrounding traffic participants and infrastructure geometry---then reproduces these detection outcomes at runtime without requiring high-fidelity rendering or costly detector inference. This enables large-scale SUMO simulations with realistic FCO perception: detection evaluation runs in under 10\,ms per FCO, on par with 2D ray tracing, while achieving over 93\,\% detection accuracy compared to CARLA ground truth.
+
+We will demonstrate the framework live in SUMO, showing how FCO detections behave across varying penetration rates and sensor configurations, and how they differ from idealized ray-tracing baselines.%
+}
+\TIBkeywords{Floating Car Observers, Traffic State Estimation, SUMO, Co-Simulation, Neural Network, Extended Floating Car Data}
 \addbibresource{local.bib}
 
 % ----------------
