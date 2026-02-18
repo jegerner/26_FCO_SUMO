@@ -1,0 +1,115 @@
+\documentclass[11pt]{tibop-article}
+\TIBauthor[Author et al.]{First Author\affOne\orcidlink{0000-1111-2222-3333}\and
+            Second Author\affOne\affTwo\orcidlink{0000-1111-2222-3335}\lastand \\
+            Third Author\affThree\orcidlink{0000-1111-2222-3334}
+          }
+\TIBaffiliations{\affOne University College, London, UK\medskip\\
+	\affTwo TIB Open Publishing, Germany\medskip\\
+	\affThree Technische Hochschule Wildau, Germany\medskip\\
+	*Correspondence: Author Name, mail@email.de
+	
+}
+
+\TIBtitle{Contribution title}
+\TIBsubtitle{Subtitle}
+\TIBbundlename[ConfAbbrev]{Full conference name}
+% \TIBconferencesession{Session Name}%ignored for journal articles
+% \TIBdoi{to be filled in}
+% \TIBpublisheddate{to be filled in}
+\TIBabstract{The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.}
+\TIBkeywords{First keyword, second, third keyword}
+\addbibresource{local.bib}
+
+% ----------------
+\usepackage{xfrac}
+% \usepackage{put your packages here}
+% ----------------
+\begin{document}
+\maketitle
+
+
+
+\section{First section}
+\subsection{Subsection} Please notice that there is no indent in the first paragraph of a section or subsection.  \par
+
+Nevertheless, following paragraphs are indented.
+
+\subsubsection{Three levels of headlines may be used} Please only use the formatting styles predefined in this file. Use the “Standard” formatting for the text.
+
+\begin{table}[h!]
+    \caption{Table captions are automatically placed above the tables.}\label{tab:<table-name>}
+    \begin{tabularx}{\linewidth}{|X|X|}
+        \hline
+        \textbf{Hazard Class}    & \textbf{A 1 to A III}                            \\
+        \hline
+        Flash point              & $< 21 ^\circ C / > 55 ^\circ C$                  \\
+        \hline
+        Density at $15 ^\circ C$ & $720\ \sfrac{kg}{m^3}$ to $860\ \sfrac{kg}{m^3}$ \\
+        \hline
+        Kinematic Viscosity      & $0,65$ to $4,0\cdot 10–6\ \sfrac{m^2}{s}$        \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\noindent Tables and Figures are automatically centered.
+
+\begin{itemize}
+    \item Bullet points may be used
+    \item ...
+\end{itemize}
+
+\begin{enumerate}%[align=left, labelwidth=1ex]
+    \item Numbering may be used, too.
+    \item ...
+\end{enumerate}
+
+\noindent Equations should be centered and set on a separate line.
+\begin{equation}
+    x+y=z
+\end{equation}
+
+\begin{equation}
+	a^2 + b^2 = c^2
+\end{equation}
+
+\noindent Whenever possible, use vector graphics and try to avoid rasterized images.
+
+
+\begin{figure}[h!]
+    \includegraphics[width=.6\linewidth]{example-image}
+    \caption{A figure caption is automatically placed below the illustration.}\label{fig:<figure-name>}
+\end{figure}
+
+\noindent For citations of references, we prefer the use of square brackets and consecutive numbers, e.g. as shown by Author et al. \cite{Chapter}, \cite[5--10]{Article}, as mentioned earlier \cite{Article,Chapter,Web}. The following bibliography provides the basic formats as a reference list with entries for journal articles \cite{Article}, book chapter \cite{Chapter}, as well as a URL \cite{Web}. For further guidance please refer to the \href{https://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf}{IEEE-Reference-Guide}.
+
+
+\section{Second section}
+
+\section*{Data availability statement}
+Please include a statement on how the data supporting the results of your article/contribution can be accessed. If the submission is not based on data or the data it is based on is restricted (third-party data, legal or ethical constraints), this has to be explained in the data availability statement, too. Ideally, data should be deposited in a FAIR-aligned public repository. A registry to find suitable data repositories is \url{re3data.org}. Reciprocal linking of data and the article/contribution through persistent identifiers (e.g. DOIs) is best practice.
+
+\section*{Underlying and related material}
+If you have other material which supports your findings (e.g. model code) or is closely related to your article/contribution (e.g. supplementary material as videos, samples, etc.) deposited on a repository, please include a brief description and the respective DOI(s) here.
+
+\section*{Author contributions}
+Please include a statement on authors' contributions according to the \href{http://credit.niso.org}{CreDIT} guidelines here. CRediT (Contributor Roles Taxonomy)’s intention is to recognize individual author contributions, reduce authorship disputes, and facilitate collaboration.
+
+\section*{Competing interests}
+Competing interests arise when issues outside research may fairly be viewed as impacting the work's neutrality. All potential competing interests must be disclosed (“The authors declare the following competing interests: …”). If there are no potential competing interests please state “The authors declare that they have no competing interests.”
+
+\section*{Funding}
+
+Please insert a funding statement (if applicable) here.
+
+\section*{Acknowledgements}
+If you want to acknowledge persons or institutions you can do so here.
+
+\section*{References}
+
+If you want to acknowledge persons or institutions you can do so here.
+
+Please use \href{https://www.overleaf.com/learn/latex/bibliography_management_with_biblatex}{Biblatex}. Add your references in *bib-format to the file local.bib.
+
+\printbibliography[heading=references]
+
+\end{document}
