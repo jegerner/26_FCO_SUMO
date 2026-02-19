@@ -1,29 +1,25 @@
 \documentclass[11pt]{tibop-article}
-\TIBauthor[Author et al.]{First Author\affOne\orcidlink{0000-1111-2222-3333}\and
-            Second Author\affOne\affTwo\orcidlink{0000-1111-2222-3335}\lastand \\
-            Third Author\affThree\orcidlink{0000-1111-2222-3334}
+\TIBauthor[Gerner et al.]{Jeremias Gerner\affOne\and
+            Klaus Bogenberger\affTwo\lastand \\
+            Stefanie Schmidtner\affOne
           }
-\TIBaffiliations{\affOne University College, London, UK\medskip\\
-	\affTwo TIB Open Publishing, Germany\medskip\\
-	\affThree Technische Hochschule Wildau, Germany\medskip\\
-	*Correspondence: Author Name, mail@email.de
-	
+\TIBaffiliations{\affOne Technische Hochschule Ingolstadt, AI Motion Bavaria, Ingolstadt, Germany\medskip\\
+	\affTwo Technical University Munich, Chair of Traffic Engineering and Control, Munich, Germany\medskip\\
+	*Correspondence: Jeremias Gerner, jeremias.gerner@thi.de
 }
 
-\TIBtitle{From Co-Simulation to Scalable FCO Detection in SUMO}
+\TIBtitle{Realistic and Scalable Floating Car Observer Detection in SUMO Derived from Co-Simulation}
 \TIBsubtitle{}
-\TIBbundlename[ConfAbbrev]{Full conference name}
+% \TIBbundlename[ConfAbbrev]{Full conference name}
 % \TIBconferencesession{Session Name}%ignored for journal articles
 % \TIBdoi{to be filled in}
 % \TIBpublisheddate{to be filled in}
 \TIBabstract{%
-Floating Car Observers (FCOs) are perception-equipped, connected vehicles that share object-level detections of surrounding traffic participants via V2X communication. By extending classical Floating Car Data (FCD) with onboard sensor outputs, FCOs enable mobile, infrastructure-independent traffic state estimation with broad spatial coverage. FCO-derived observations are therefore highly relevant for ITS applications where a complete and accurate picture of the current traffic state is essential.
+Floating Car Observers (FCOs) are perception-equipped, connected vehicles that share object-level detections of surrounding traffic participants via V2X communication \cite{zhang2023novel,ma2021high,florin2022real}. By extending classical Floating Car Data (FCD) with onboard sensor outputs, FCOs enable mobile, infrastructure-independent traffic state estimation with broad spatial coverage. FCO-derived observations are therefore highly relevant for ITS applications where a complete and accurate picture of the current traffic state is essential. A key challenge in FCO research is the simulation-based development and evaluation of algorithms that rely on realistic detection inputs. Microscopic traffic simulators like SUMO operate at a high level of abstraction and do not natively model sensor physics or the stochastic behavior of modern learning-based perception systems. Existing approaches approximate FCO detectability via simple distance thresholds \cite{zhang2023novel} or 2D ray tracing \cite{Ilic2024raytracing,DuensingHoyer2025FCO}, producing simplified detections not grounded in real-world sensor capabilities. Furthermore, they assign binary detected/undetected labels and fail to capture the uncertainty, position error, and sensor-dependent characteristics of real 3D object detectors.
 
-A key challenge in FCO research is the simulation-based development and evaluation of algorithms that rely on realistic detection inputs. Microscopic traffic simulators like SUMO operate at a high level of abstraction and do not natively model sensor physics or the stochastic behavior of modern learning-based perception systems. Existing approaches approximate FCO detectability via simple distance thresholds or 2D ray tracing, producing simplified detections not grounded in real-world sensor capabilities. Furthermore, they assign binary detected/undetected labels and fail to capture the uncertainty, position error, and sensor-dependent characteristics of real 3D object detectors.
+To address this gap, we present a scalable neural network-based observation model \cite{gerner2023sumodetector,IV2024} that emulates the outputs of state-of-the-art 3D object detectors directly within SUMO. Training data is generated through a synchronized SUMO--CARLA \cite{CARLA2017} co-simulation, in which observer vehicles are equipped with virtual camera and LiDAR sensors following the NuScenes sensor setup \cite{nuscenes}. Detections are produced by fine-tuned 3D detection models covering LiDAR-only, camera-only, and multimodal configurations, and capture realistic imperfections including localization error and missed detections. A lightweight neural network, trained on abstract scene representations natively available in SUMO---capturing surrounding traffic participants and infrastructure geometry---then reproduces these detection outcomes at runtime without requiring high-fidelity rendering or costly detector inference. This enables large-scale SUMO simulations with realistic FCO perception: detection evaluation runs in under 10\,ms per FCO, on par with 2D ray tracing, while achieving over 93\,\% detection accuracy compared to CARLA ground truth.
 
-To address this gap, we present a scalable neural network-based observation model that emulates the outputs of state-of-the-art 3D object detectors directly within SUMO. Training data is generated through a synchronized SUMO--CARLA co-simulation, in which observer vehicles are equipped with virtual camera and LiDAR sensors following the NuScenes sensor setup. Detections are produced by fine-tuned 3D detection models covering LiDAR-only, camera-only, and multimodal configurations, and capture realistic imperfections including localization error and missed detections. A lightweight neural network, trained on abstract scene representations natively available in SUMO---capturing surrounding traffic participants and infrastructure geometry---then reproduces these detection outcomes at runtime without requiring high-fidelity rendering or costly detector inference. This enables large-scale SUMO simulations with realistic FCO perception: detection evaluation runs in under 10\,ms per FCO, on par with 2D ray tracing, while achieving over 93\,\% detection accuracy compared to CARLA ground truth.
-
-We will demonstrate the framework live in SUMO, showing how FCO detections behave across varying penetration rates and sensor configurations, and how they differ from idealized ray-tracing baselines.%
+At the conference, we present via a poster and live demonstration how the detection module is trained, illustrating the full process from co-simulation to a scalable detection module. The detection module and trained neural network weights are shared via an open-source repository (\url{https://github.com/urbanAIthi/fco}, shows a first version) to enable other researchers to use the detection module for Floating Car Observer and general detection-based use cases in SUMO.%
 }
 \TIBkeywords{Floating Car Observers, Traffic State Estimation, SUMO, Co-Simulation, Neural Network, Extended Floating Car Data}
 \addbibresource{local.bib}
@@ -32,91 +28,32 @@ We will demonstrate the framework live in SUMO, showing how FCO detections behav
 \usepackage{xfrac}
 % \usepackage{put your packages here}
 % ----------------
+
+% Suppress header with conference/author info
+\chead{}
+
+% Override maketitle to remove conference/DOI/license/date header
+\makeatletter
+\renewcommand{\maketitle}{%
+    \begin{center}
+        \LARGE\textbf{\contribtitle}\\\smallskip
+        \Large{\contribsubtitle}
+    \end{center}
+    \begin{center}
+    \normalsize{\@author}
+    \end{center}
+    \begin{center}\small
+        \affiliations
+    \end{center}
+    \textbf{\large Abstract.} {\large\thisabstract}\bigskip\\
+    \noindent\textbf{\large Keywords:} {\large\keywords}
+    \thispagestyle{plain}
+    \fontsize{12pt}{14pt}\selectfont
+}
+\makeatother
+
 \begin{document}
 \maketitle
-
-
-
-\section{First section}
-\subsection{Subsection} Please notice that there is no indent in the first paragraph of a section or subsection.  \par
-
-Nevertheless, following paragraphs are indented.
-
-\subsubsection{Three levels of headlines may be used} Please only use the formatting styles predefined in this file. Use the “Standard” formatting for the text.
-
-\begin{table}[h!]
-    \caption{Table captions are automatically placed above the tables.}\label{tab:<table-name>}
-    \begin{tabularx}{\linewidth}{|X|X|}
-        \hline
-        \textbf{Hazard Class}    & \textbf{A 1 to A III}                            \\
-        \hline
-        Flash point              & $< 21 ^\circ C / > 55 ^\circ C$                  \\
-        \hline
-        Density at $15 ^\circ C$ & $720\ \sfrac{kg}{m^3}$ to $860\ \sfrac{kg}{m^3}$ \\
-        \hline
-        Kinematic Viscosity      & $0,65$ to $4,0\cdot 10–6\ \sfrac{m^2}{s}$        \\
-        \hline
-    \end{tabularx}
-\end{table}
-
-\noindent Tables and Figures are automatically centered.
-
-\begin{itemize}
-    \item Bullet points may be used
-    \item ...
-\end{itemize}
-
-\begin{enumerate}%[align=left, labelwidth=1ex]
-    \item Numbering may be used, too.
-    \item ...
-\end{enumerate}
-
-\noindent Equations should be centered and set on a separate line.
-\begin{equation}
-    x+y=z
-\end{equation}
-
-\begin{equation}
-	a^2 + b^2 = c^2
-\end{equation}
-
-\noindent Whenever possible, use vector graphics and try to avoid rasterized images.
-
-
-\begin{figure}[h!]
-    \includegraphics[width=.6\linewidth]{example-image}
-    \caption{A figure caption is automatically placed below the illustration.}\label{fig:<figure-name>}
-\end{figure}
-
-\noindent For citations of references, we prefer the use of square brackets and consecutive numbers, e.g. as shown by Author et al. \cite{Chapter}, \cite[5--10]{Article}, as mentioned earlier \cite{Article,Chapter,Web}. The following bibliography provides the basic formats as a reference list with entries for journal articles \cite{Article}, book chapter \cite{Chapter}, as well as a URL \cite{Web}. For further guidance please refer to the \href{https://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf}{IEEE-Reference-Guide}.
-
-
-\section{Second section}
-
-\section*{Data availability statement}
-Please include a statement on how the data supporting the results of your article/contribution can be accessed. If the submission is not based on data or the data it is based on is restricted (third-party data, legal or ethical constraints), this has to be explained in the data availability statement, too. Ideally, data should be deposited in a FAIR-aligned public repository. A registry to find suitable data repositories is \url{re3data.org}. Reciprocal linking of data and the article/contribution through persistent identifiers (e.g. DOIs) is best practice.
-
-\section*{Underlying and related material}
-If you have other material which supports your findings (e.g. model code) or is closely related to your article/contribution (e.g. supplementary material as videos, samples, etc.) deposited on a repository, please include a brief description and the respective DOI(s) here.
-
-\section*{Author contributions}
-Please include a statement on authors' contributions according to the \href{http://credit.niso.org}{CreDIT} guidelines here. CRediT (Contributor Roles Taxonomy)’s intention is to recognize individual author contributions, reduce authorship disputes, and facilitate collaboration.
-
-\section*{Competing interests}
-Competing interests arise when issues outside research may fairly be viewed as impacting the work's neutrality. All potential competing interests must be disclosed (“The authors declare the following competing interests: …”). If there are no potential competing interests please state “The authors declare that they have no competing interests.”
-
-\section*{Funding}
-
-Please insert a funding statement (if applicable) here.
-
-\section*{Acknowledgements}
-If you want to acknowledge persons or institutions you can do so here.
-
-\section*{References}
-
-If you want to acknowledge persons or institutions you can do so here.
-
-Please use \href{https://www.overleaf.com/learn/latex/bibliography_management_with_biblatex}{Biblatex}. Add your references in *bib-format to the file local.bib.
 
 \printbibliography[heading=references]
 

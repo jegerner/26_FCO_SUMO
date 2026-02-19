@@ -14,7 +14,7 @@
 \RequirePackage{xcolor}
 \RequirePackage[breaklinks=true, colorlinks=true, linkcolor=black, anchorcolor=blue, citecolor=black, filecolor=blue, menucolor=blue,  pagecolor=blue, urlcolor=blue]{hyperref}
 \urlstyle{same}
-\RequirePackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
+\RequirePackage[backend=bibtex, style=ieee]{biblatex} %For bibliography management with biblatex
 \AtBeginBibliography{%
 	\setlength{\bibitemsep}{0pt}%
 	\setlength{\parskip}{0pt}%
